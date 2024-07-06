@@ -7,6 +7,7 @@ jobs:
       - uses: msys2/setup-msys2@v2
       - run: |
           (Get-Command bash).Path
+          (Get-Command bash.exe).Path
           (Get-Command sh).Path
           (Get-Command perl).Path
           (Get-Command msys2).Path
@@ -31,6 +32,7 @@ jobs:
       - run: msys2 -c 'uname -a'
       - run: |
           (Get-Command bash).Path
+          (Get-Command bash.exe).Path
           (Get-Command sh).Path
           (Get-Command perl).Path
           (Get-Command msys2).Path

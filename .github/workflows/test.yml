@@ -13,7 +13,10 @@ jobs:
           (Get-Command perl).Path
           (Get-Command msys2).Path
       - uses: ilammy/msvc-dev-cmd@v1
-      - run: msys2 -c 'uname -a'
+      - run: bash -c pwd
+      - run: bash.exe -c pwd
+      - run: sh -c pwd
+      - run: sh.exe -c pwd
       - run: |
           (Get-Command bash).Path
           (Get-Command bash.exe).Path

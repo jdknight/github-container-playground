@@ -10,11 +10,13 @@ jobs:
           (Get-Command bash.exe).Path
           (Get-Command sh).Path
           (Get-Command sh.exe).Path
+          (Get-Command make).Path
           (Get-Command perl).Path
           (Get-Command msys2).Path
       - uses: ilammy/msvc-dev-cmd@v1
       - run: bash -c pwd
       - run: bash.exe -c pwd
+      - run: make --version
       - run: sh -c pwd
       - run: sh.exe -c pwd
       - run: sh.exe -c pwd
@@ -22,5 +24,6 @@ jobs:
         run: |
           which bash
           which sh
+          which make
           which perl
           which msys2

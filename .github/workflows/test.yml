@@ -5,6 +5,8 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MSYS
       - run: |
           (Get-Command bash).Path
           (Get-Command bash.exe).Path
@@ -26,4 +28,7 @@ jobs:
           which sh
           which make
           which perl
-          which msys2
+      - run: |
+          set MSYSTEM=UCRT64
+          msys2 -c 'which bash'
+          msys2 -c 'bash --version'

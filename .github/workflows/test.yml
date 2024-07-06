@@ -9,30 +9,15 @@ jobs:
           (Get-Command bash).Path
           (Get-Command bash.exe).Path
           (Get-Command sh).Path
+          (Get-Command sh.exe).Path
           (Get-Command perl).Path
           (Get-Command msys2).Path
       - uses: ilammy/msvc-dev-cmd@v1
-      - run: pip install releng-tool
-      - run: |
-          bash --version
-          echo ""
-          # nmake /?
-          # echo ""
-          hg --version
-          echo ""
-          perl --version
-          echo ""
-          releng-tool --version
-          echo ""
-          sed --version
-          echo ""
-          uname -a
-      - run: env
-      - run: bash -c "echo 123"
       - run: msys2 -c 'uname -a'
       - run: |
           (Get-Command bash).Path
           (Get-Command bash.exe).Path
           (Get-Command sh).Path
+          (Get-Command sh.exe).Path
           (Get-Command perl).Path
           (Get-Command msys2).Path

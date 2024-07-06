@@ -29,8 +29,9 @@ jobs:
           which sh
           which make
           which perl
+          releng-tool --version
       - run: |
           set MSYSTEM=UCRT64
           msys2 -c 'which bash'
           msys2 -c 'bash --version'
-          msys2 -c 'releng-tool --version'
+          releng-tool --version

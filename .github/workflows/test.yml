@@ -18,3 +18,5 @@ jobs:
           releng-tool --version
           echo ""
           sed --version
+      - run: env
+      - run: bash -c "echo 123"

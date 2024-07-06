@@ -6,9 +6,17 @@ jobs:
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
       - run: pip install releng-tool
+      - run: choco install hg
       - run: |
           bash --version
+          echo.
           nmake /?
+          echo.
+          hg --version
+          echo.
           perl --version
+          echo.
           releng-tool --version
+          echo.
           sed --version
+

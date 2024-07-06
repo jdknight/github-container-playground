@@ -4,6 +4,7 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
+      - uses: microsoft/setup-msbuild@v2
       - run: pip install releng-tool
       - run: |
           bash --version

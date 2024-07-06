@@ -16,6 +16,7 @@ jobs:
           (Get-Command perl).Path
           (Get-Command msys2).Path
       - uses: ilammy/msvc-dev-cmd@v1
+      - run: pip install releng-tool
       - run: bash -c pwd
       - run: bash.exe -c pwd
       - run: make --version
@@ -32,3 +33,4 @@ jobs:
           set MSYSTEM=UCRT64
           msys2 -c 'which bash'
           msys2 -c 'bash --version'
+          msys2 -c 'releng-tool --version'

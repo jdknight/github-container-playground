@@ -17,10 +17,10 @@ jobs:
       - run: bash.exe -c pwd
       - run: sh -c pwd
       - run: sh.exe -c pwd
-      - run: |
-          (Get-Command bash).Path
-          (Get-Command bash.exe).Path
-          (Get-Command sh).Path
-          (Get-Command sh.exe).Path
-          (Get-Command perl).Path
-          (Get-Command msys2).Path
+      - run: sh.exe -c pwd
+      - shell: bash
+        run: |
+          which bash
+          which sh
+          which perl
+          which msys2

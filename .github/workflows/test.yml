@@ -4,9 +4,9 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: MSYS
+      #- uses: msys2/setup-msys2@v2
+      #  with:
+      #    msystem: MSYS
       - run: |
           (Get-Command bash).Path
           (Get-Command bash.exe).Path
@@ -14,7 +14,7 @@ jobs:
           (Get-Command sh.exe).Path
           (Get-Command make).Path
           (Get-Command perl).Path
-          (Get-Command msys2).Path
+      #    (Get-Command msys2).Path
       - uses: ilammy/msvc-dev-cmd@v1
       - run: pip install releng-tool
       - run: bash -c pwd
@@ -29,9 +29,4 @@ jobs:
           which sh
           which make
           which perl
-          releng-tool --version
-      - run: |
-          set MSYSTEM=UCRT64
-          msys2 -c 'which bash'
-          msys2 -c 'bash --version'
           releng-tool --version

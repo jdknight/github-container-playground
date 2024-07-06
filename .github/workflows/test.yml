@@ -4,9 +4,11 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
-      #- uses: msys2/setup-msys2@v2
-      #  with:
-      #    msystem: MSYS
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: make
       - run: |
           (Get-Command bash).Path
           (Get-Command bash.exe).Path

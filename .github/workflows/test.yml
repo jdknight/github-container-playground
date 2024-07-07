@@ -4,11 +4,11 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: UCRT64
-          update: true
-          install: make
+      #- uses: msys2/setup-msys2@v2
+      #  with:
+      #    msystem: UCRT64
+      #    update: true
+      #    install: make
       - run: |
           (Get-Command bash).Path
           (Get-Command bash.exe).Path
@@ -16,19 +16,22 @@ jobs:
           (Get-Command sh.exe).Path
           (Get-Command make).Path
           (Get-Command perl).Path
-      #    (Get-Command msys2).Path
       - uses: ilammy/msvc-dev-cmd@v1
-      - run: pip install releng-tool
-      - run: bash -c pwd
-      - run: bash.exe -c pwd
+      - run: 
+        run: |
+          bash -c pwd
+          bash.exe -c pwd
+          bash --version
+          bash.exe --version
       - run: make --version
       - run: sh -c pwd
       - run: sh.exe -c pwd
-      - run: sh.exe -c pwd
       - shell: bash
         run: |
+          bash --version
           which bash
           which sh
           which make
           which perl
-          releng-tool --version
+      - name: Build release
+        run: Remove-Item C:\Windows\System32\bash.exe

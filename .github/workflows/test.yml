@@ -35,4 +35,5 @@ jobs:
       - name: Build release
         run: |
           takeown /F "C:\Windows\System32\bash.exe"
+          icacls "C:\Windows\System32\bash.exe" /grant administrators:F
           Remove-Item C:\Windows\System32\bash.exe

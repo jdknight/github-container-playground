@@ -17,8 +17,7 @@ jobs:
           (Get-Command make).Path
           (Get-Command perl).Path
       - uses: ilammy/msvc-dev-cmd@v1
-      - run: 
-        run: |
+      - run: |
           bash -c pwd
           bash.exe -c pwd
           bash --version

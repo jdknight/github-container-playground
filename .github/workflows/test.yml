@@ -33,4 +33,6 @@ jobs:
           which make
           which perl
       - name: Build release
-        run: Remove-Item C:\Windows\System32\bash.exe
+        run: |
+          takeown /F "C:\Windows\System32\bash.exe"
+          Remove-Item C:\Windows\System32\bash.exe

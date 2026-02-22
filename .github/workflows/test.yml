@@ -86,7 +86,7 @@ jobs:
         mkdir -p /opt/waf/
         tar -vxf waf-2.1.9.tar.bz2 -C /opt/waf --strip-components=1
         echo "z waf"
-        /opt/waf/waf --help
+        /opt/waf/waf-light configure build
         echo "setup waf"
-        sudo ln -s /opt/waf/waf /usr/bin/waf
+        sudo cp /opt/waf/waf /usr/bin/waf
         waf --help

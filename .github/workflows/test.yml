@@ -5,11 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
+    - name: Checkout repository
+      uses: actions/checkout@v4
     - run: |
-        #sudo apt-get install wget gpg bzip2 python-is-python3
-
         bash .github/workflows/setup-waf.sh
         waf --help

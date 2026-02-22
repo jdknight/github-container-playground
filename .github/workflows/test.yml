@@ -2,38 +2,33 @@ on: [push]
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      #- uses: msys2/setup-msys2@v2
-      #  with:
-      #    msystem: UCRT64
-      #    update: true
-      #    install: make
       - run: |
-          (Get-Command bash).Path
-          (Get-Command bash.exe).Path
-          (Get-Command sh).Path
-          (Get-Command sh.exe).Path
-          (Get-Command make).Path
-          (Get-Command perl).Path
-      - uses: ilammy/msvc-dev-cmd@v1
-      - run: |
-          bash -c pwd
-          bash.exe -c pwd
-          bash --version
-          bash.exe --version
-      - run: make --version
-      - run: sh -c pwd
-      - run: sh.exe -c pwd
-      - shell: bash
-        run: |
-          bash --version
-          which bash
-          which sh
-          which make
-          which perl
-      - name: Build release
-        run: |
-          takeown /F "C:\Windows\System32\bash.exe"
-          icacls "C:\Windows\System32\bash.exe" /grant administrators:F
-          Remove-Item C:\Windows\System32\bash.exe
+          apt install wget gpg bzip2 python-is-python3
+          
+          cat <EOF >waf-2.1.9.tar.bz2.asc
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEjH6y+TsMRfVzL+XRG6xXHc13IpUFAmkVHS0ACgkQG6xXHc13
+IpWyqQ//cC4kju+ibnjb6hFsoV1mbHzt6Oweg2IavWyVWq0zcBosEwEoMWxqG7ou
+o7GjFDx8paN/vb+RYKzvN5kj6wT0BXBICq6MDOS26kNS2/fvtKTfIRI1T6H3PBlg
+qMKN9H2DBaV3zR4/E05qjjYbNyNeUjBjIJixHPot/RNjrT5kj8+1EoH6RYiEXvcX
+pZwSf1tPJINjd4O7mcoWPV+SqyzzBZl/8mgRWn1vy4UsH/haxDRwixZkS0bQ12Xc
+kSVBhoLZdG3JATwUDILs9BsKpCQ1cLiX53WRnEB/TsrVW2E0wR5r+N1YgqAEnQ0w
+NpKNRbztPP3z92yb5aUyqdIUUnuUvDtkln1enD4eRqWRYla7yTYp3+BZtLrg9ZHX
+6LLWzNwRKDdZ9EU5hFhcmr4Zv1BndByJKIHfuRC+ZeJkZ8NUop2hIjgOiRZtKphl
+bGbf2j/BMt51krhJ2qyL6SAZ/B9GStETJtzLJqqckdpO3tTN6Pfc/NnSrluU6sNy
+TLOQgl303LvFZdM6ucOX+Npk/4K3h++lhA4iXx/xTnO+1m0RC1ZMVq95ZuVpru8w
+IZP/MQtghRWLp11yhrIYQouZJIWysZM9hLRQjusP/jCuv5+7t/ip9lo7e3DBh+Aq
+2WmpwrzhvNFFqHmbD86KM9IEaAL4hjYAmCKLorgmslhCrHEZDQU=
+=Wmjt
+-----END PGP SIGNATURE-----
+EOF
+
+          wget https://waf.io/waf-2.1.9.tar.bz2
+          gpg --verify waf-2.1.9.tar.bz2.asc
+          mkdir -p /opt/waf/
+          tar -vxf waf-2.1.9.tar.bz2 -C /opt/waf --strip-components=1
+          ln /opt/waf/waf /usr/bin/waf
+          waf --help

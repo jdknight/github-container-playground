@@ -89,4 +89,5 @@ jobs:
         /opt/waf/waf-light configure build
         echo "setup waf"
         sudo cp /opt/waf/waf /usr/bin/waf
+        echo "help"
         waf --help

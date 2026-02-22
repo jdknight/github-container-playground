@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          apt-get install wget gpg bzip2 python-is-python3
+          sudo apt-get install wget gpg bzip2 python-is-python3
 
           cat <EOF >waf-2.1.9.tar.bz2.asc
           -----BEGIN PGP SIGNATURE-----

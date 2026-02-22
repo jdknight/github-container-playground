@@ -85,6 +85,8 @@ jobs:
         gpg --verify waf-2.1.9.tar.bz2.asc
         mkdir -p /opt/waf/
         tar -vxf waf-2.1.9.tar.bz2 -C /opt/waf --strip-components=1
+        echo "z waf"
+        waf --help /opt/waf/waf
         echo "setup waf"
         sudo ln -s /opt/waf/waf /usr/bin/waf
         waf --help

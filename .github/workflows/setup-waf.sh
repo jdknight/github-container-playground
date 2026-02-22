@@ -85,6 +85,7 @@ tar -vxf waf-2.1.9.tar.bz2 --strip-components=1
 echo "setup waf"
 sudo cp waf /usr/bin/waf
 echo "help"
+cd /
 sudo waf --version
 
 

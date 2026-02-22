@@ -7,7 +7,7 @@ jobs:
       - run: |
           sudo apt-get install wget gpg bzip2 python-is-python3
 
-          cat <EOF >waf-2.1.9.tar.bz2.asc
+          cat <<EOF >waf-2.1.9.tar.bz2.asc
           -----BEGIN PGP SIGNATURE-----
 
           iQIzBAABCgAdFiEEjH6y+TsMRfVzL+XRG6xXHc13IpUFAmkVHS0ACgkQG6xXHc13

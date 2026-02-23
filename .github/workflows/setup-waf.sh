@@ -97,9 +97,10 @@ tar -xf waf-"$waf_version".tar.bz2 --strip-components=1
 ./waf-light configure build
 
 # install waf
-# (run waf once to setup cache)
 sudo cp waf /usr/bin/waf
-sudo waf --version
 
 # cleanup
 rm -rf "$temp_dir"
+
+# run waf once to setup cache
+sudo waf --version

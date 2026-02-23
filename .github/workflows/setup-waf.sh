@@ -3,7 +3,7 @@
 # Script to install `waf` into the platform.
 
 # setup an interim directory
-temp_dir=$(mktemp -d); cd "$temp_dir" || exit 1
+temp_dir=$(mktemp -d); pushd "$temp_dir" >/dev/null || exit 1
 
 ###############################################################################
 # Version to install.
@@ -103,4 +103,5 @@ sudo cp waf /usr/bin/waf
 rm -rf "$temp_dir"
 
 # run waf once to setup cache
+popd >/dev/null
 sudo waf --version

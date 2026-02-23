@@ -1,8 +1,37 @@
 #!/usr/bin/env bash
+#
+# Script to install `waf` into the platform.
 
-temp_dir=$(mktemp -d)
-cd "$temp_dir" || exit 1
+# setup an interim directory
+temp_dir=$(mktemp -d); cd "$temp_dir" || exit 1
 
+###############################################################################
+# Version to install.
+
+waf_version="2.1.9"
+
+cat <<EOF >waf-"$waf_version".tar.bz2.asc
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEjH6y+TsMRfVzL+XRG6xXHc13IpUFAmkVHS0ACgkQG6xXHc13
+IpWyqQ//cC4kju+ibnjb6hFsoV1mbHzt6Oweg2IavWyVWq0zcBosEwEoMWxqG7ou
+o7GjFDx8paN/vb+RYKzvN5kj6wT0BXBICq6MDOS26kNS2/fvtKTfIRI1T6H3PBlg
+qMKN9H2DBaV3zR4/E05qjjYbNyNeUjBjIJixHPot/RNjrT5kj8+1EoH6RYiEXvcX
+pZwSf1tPJINjd4O7mcoWPV+SqyzzBZl/8mgRWn1vy4UsH/haxDRwixZkS0bQ12Xc
+kSVBhoLZdG3JATwUDILs9BsKpCQ1cLiX53WRnEB/TsrVW2E0wR5r+N1YgqAEnQ0w
+NpKNRbztPP3z92yb5aUyqdIUUnuUvDtkln1enD4eRqWRYla7yTYp3+BZtLrg9ZHX
+6LLWzNwRKDdZ9EU5hFhcmr4Zv1BndByJKIHfuRC+ZeJkZ8NUop2hIjgOiRZtKphl
+bGbf2j/BMt51krhJ2qyL6SAZ/B9GStETJtzLJqqckdpO3tTN6Pfc/NnSrluU6sNy
+TLOQgl303LvFZdM6ucOX+Npk/4K3h++lhA4iXx/xTnO+1m0RC1ZMVq95ZuVpru8w
+IZP/MQtghRWLp11yhrIYQouZJIWysZM9hLRQjusP/jCuv5+7t/ip9lo7e3DBh+Aq
+2WmpwrzhvNFFqHmbD86KM9IEaAL4hjYAmCKLorgmslhCrHEZDQU=
+=Wmjt
+-----END PGP SIGNATURE-----
+EOF
+
+###############################################################################
+
+# waf's project public key
 gpg --import <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
@@ -57,36 +86,20 @@ IYlK05zLaeHsRNnBKgN7YOW05M4p+0K5OecuXm66Yajezi/+vyMf13tulIU=
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
 
+# download package
+wget https://waf.io/waf-"$waf_version".tar.bz2
+gpg --verify waf-"$waf_version".tar.bz2.asc
 
-cat <<EOF >waf-2.1.9.tar.bz2.asc
------BEGIN PGP SIGNATURE-----
+# extract package
+tar -xf waf-"$waf_version".tar.bz2 --strip-components=1
 
-iQIzBAABCgAdFiEEjH6y+TsMRfVzL+XRG6xXHc13IpUFAmkVHS0ACgkQG6xXHc13
-IpWyqQ//cC4kju+ibnjb6hFsoV1mbHzt6Oweg2IavWyVWq0zcBosEwEoMWxqG7ou
-o7GjFDx8paN/vb+RYKzvN5kj6wT0BXBICq6MDOS26kNS2/fvtKTfIRI1T6H3PBlg
-qMKN9H2DBaV3zR4/E05qjjYbNyNeUjBjIJixHPot/RNjrT5kj8+1EoH6RYiEXvcX
-pZwSf1tPJINjd4O7mcoWPV+SqyzzBZl/8mgRWn1vy4UsH/haxDRwixZkS0bQ12Xc
-kSVBhoLZdG3JATwUDILs9BsKpCQ1cLiX53WRnEB/TsrVW2E0wR5r+N1YgqAEnQ0w
-NpKNRbztPP3z92yb5aUyqdIUUnuUvDtkln1enD4eRqWRYla7yTYp3+BZtLrg9ZHX
-6LLWzNwRKDdZ9EU5hFhcmr4Zv1BndByJKIHfuRC+ZeJkZ8NUop2hIjgOiRZtKphl
-bGbf2j/BMt51krhJ2qyL6SAZ/B9GStETJtzLJqqckdpO3tTN6Pfc/NnSrluU6sNy
-TLOQgl303LvFZdM6ucOX+Npk/4K3h++lhA4iXx/xTnO+1m0RC1ZMVq95ZuVpru8w
-IZP/MQtghRWLp11yhrIYQouZJIWysZM9hLRQjusP/jCuv5+7t/ip9lo7e3DBh+Aq
-2WmpwrzhvNFFqHmbD86KM9IEaAL4hjYAmCKLorgmslhCrHEZDQU=
-=Wmjt
------END PGP SIGNATURE-----
-EOF
-
-wget https://waf.io/waf-2.1.9.tar.bz2
-gpg --verify waf-2.1.9.tar.bz2.asc
-mkdir -p /opt/waf/
-tar -vxf waf-2.1.9.tar.bz2 --strip-components=1
+# build package
 ./waf-light configure build
-echo "setup waf"
+
+# install waf
+# (run waf once to setup cache)
 sudo cp waf /usr/bin/waf
-echo "help"
-cd /
 sudo waf --version
 
-
+# cleanup
 rm -rf "$temp_dir"
